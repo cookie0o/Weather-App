@@ -1,10 +1,10 @@
-from IPweather.IPweather import IPweather # import everything from IPweather
+from IPweather.IPweather import * # import everything from IPweather
 import threading # import threading to keep the weather up to date
 import time # import time to use less cpu in loops and stays in the API call limit
 import os # import to get the current directory
 
 
-ip          = IPweather.get_ip() # get the ip address of the user
+ip          = get_ip() # get the ip address of the user
 current_dir = os.path.dirname(os.path.abspath(__file__)) # get the current directory
 theme_path  = os.path.join(current_dir+"/theme/dark_red.xml")
 
@@ -12,12 +12,12 @@ theme_path  = os.path.join(current_dir+"/theme/dark_red.xml")
 # create function to keep the weather data up to date and Call the weather API
 def update_weather(self, MainWindow):
     while True:
-        weather = IPweather.get_weather(ip, True, True, True, True, True, True) # get the weather data
+        current_weather = weather.IP(ip, True, True, True, True, True, True) # get the weather data
 
-        self.values_display.setText(f"wind-speed: {weather[4]} ; Air-humidity: {weather[3]} ; Temperature: {weather[2]}") # set the text of the values_display
+        self.values_display.setText(f"wind-speed: {current_weather[4]} ; Air-humidity: {current_weather[3]} ; Temperature: {current_weather[2]}") # set the text of the values_display
         self.ip_display.setText(f"  IP: {ip}") # set the text of the ip_display
-        self.time_location_display.setText(weather[1] +" : "+ weather[5]) # set the text of the time_location_display
-        self.current_weather_display.setText("Current-weather: "+ weather[0]) # set the text of the current_weather_display
+        self.time_location_display.setText(current_weather[1] +" : "+ current_weather[5]) # set the text of the time_location_display
+        self.current_weather_display.setText("Current-weather: "+ current_weather[0]) # set the text of the current_weather_display
 
         time.sleep(60) # wait 60 seconds before calling the API again
 
